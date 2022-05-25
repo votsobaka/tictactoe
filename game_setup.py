@@ -13,16 +13,28 @@ class TicTacToe:
         self.turn = 1
 
     def start(self):
+        ### выше так же доска заполняется, можно функцию вынести
         self.game_board = [[" ", " ", " "],
                            [" ", " ", " "],
                            [" ", " ", " "]]
         print("Welcome to Tic-Tac-Toe!")
+        
+        ### печать доски - лучше функцию, ты много раз этот код используешь
         print("   1   2   3"
               f"\n1: {self.game_board[0][0]} | {self.game_board[0][1]} | {self.game_board[0][2]} "
               f"\n-------------"
               f"\n2: {self.game_board[1][0]} | {self.game_board[1][1]} | {self.game_board[1][2]} "
               f"\n-------------"
               f"\n3: {self.game_board[2][0]} | {self.game_board[2][1]} | {self.game_board[2][2]} ")
+        
+		### получается, что у тебя вызовы функций-ходов все в цепочке, лучше, думаю, было бы здесь сделать цикл где вызывать 
+		### функции-ходы, что-то наподобие:
+		### while game-is-not-over
+		###		player_move
+		###		check_win
+		###		pc_move
+		###		check_win
+        
         self.rnd_first()
 
     def rnd_first(self):
@@ -35,6 +47,21 @@ class TicTacToe:
             self.pc_move(rnd)
         return
 
+	### в целом выглядит, что ход игрока и компа могли бы иметь общий код-функцию.
+	### она бы ставила нужный символ в выбранную клетку, например. типа
+    ###
+    ### def common_move
+    ###     if player
+    ###         move = get_player_move # внутри get_player_move функции можно считывание инпута делать
+    ###     else
+    ###         move = get_pc_move # внутри get_pc_move - рандомный ход
+    ###     
+    ###     check_move(move) # проверка, что ход валиден
+    ###     дальше ставим в доску правильный символ, передаём ход и что там ещё надо делать
+    ###     
+    ###     ну и часть с получением мува и чек-мувом в цикл забодяжить, чтобы вызывать это до тех пор, пока не попадём в пустую клетку
+    
+    
     def player_move(self, order):
         move = input("\nIt's your turn! Choose row and column by numbers (without spaces): ")
         move = list(move)
